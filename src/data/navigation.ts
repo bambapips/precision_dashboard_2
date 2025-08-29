@@ -7,14 +7,15 @@ import {
   PlansBillingIcon,
   SettingsIcon,
   SupportIcon,
+  Cube
 } from '../assets/icons/Icon';
 
 
 export const menuItems: NavItem[] = [
-  { label: 'Hiring Assistant', icon: HiringAssistantIcon, path: '/hiring-assistant' },
+  { label: 'Hiring Assistant', icon: Cube , path: '/hiring-assistant' },
   { label: 'Manage Jobs', icon: ManageJobsIcon, path: '/manage-jobs' },
   {
-    label: 'Talent Bank', icon: TalentBankIcon, path: '/talent-bank', children: [
+    label: 'Talent Bank', icon: HiringAssistantIcon, path: '/talent-bank', children: [
       { label: 'My Talents', icon: TalentBankIcon, path: '/talent-bank/my-talents' },
       { label: 'Precision Talents', icon: TalentBankIcon, path: '/talent-bank/precision-talents' },
     ]
