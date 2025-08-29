@@ -1,7 +1,7 @@
 import React from 'react';
 import NavLink from './NavLink';
 import { menuItems, administrationItems } from '../data/navigation';
-import { SignOutIcon, PrecisionLogo } from '../assets/icons/Icon';
+import { PrecisionLogo } from '../assets/icons/Icon';
 
 interface SidebarProps {
   isOpen: boolean;
