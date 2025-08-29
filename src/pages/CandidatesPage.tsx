@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
     type ColumnDef,
     flexRender,
@@ -15,13 +15,13 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { candidatesData, type Candidate } from "@/data/candidates";
 
-// --- Sub-components for this page ---
+// --- Sub-components with prop types ---
 
-const ScoreIndicator = ({ score }) => {
+const ScoreIndicator: React.FC<{ score: number }> = ({ score }) => {
     const getColor = () => {
-        if (score > 80) return "#18B368"; 
-        if (score > 50) return "#1570EF"; 
-        return "#EDA12F"; 
+        if (score > 80) return "#18B368";
+        if (score > 50) return "#1570EF";
+        return "#EDA12F";
     };
     const color = getColor();
     const circumference = 2 * Math.PI * 18;
@@ -50,11 +50,11 @@ const ScoreIndicator = ({ score }) => {
     );
 };
 
-const SummaryCard = ({ title, value, description, tSize }) => (
+const SummaryCard: React.FC<{ title: string; value: string; description?: string; tSize?: string }> = ({ title, value, description, tSize }) => (
     <div className="flex-col w-fit p-4 bg-white rounded-lg">
         <p className="text-sm text-gray-500">{title}</p>
-        <p className={`text-[${tSize}] gap-2 flex items-center font-bold mt-1`}>{value + " "} <span className="font-medium text-[12px] ">{description && "Assessed"}</span>  </p>
-        {description && <p className={`text-[${tSize}] gap-2 font-bold flex items-center mt-1`}>{description + " "} <span className="font-medium text-[12px]">Interviewed</span></p>}
+        <p className={`text-${tSize ? `[${tSize}]` : '2xl'} gap-2 flex items-center font-bold mt-1`}>{value + " "} <span className="font-medium text-[12px] ">{description && "Assessed"}</span>  </p>
+        {description && <p className={`text-${tSize ? `[${tSize}]` : '2xl'} gap-2 font-bold flex items-center mt-1`}>{description + " "} <span className="font-medium text-[12px]">Interviewed</span></p>}
     </div>
 );
 
@@ -70,7 +70,7 @@ const columns: ColumnDef<Candidate>[] = [
     { id: "actions", header: "Actions", cell: () => (<DropdownMenu><DropdownMenuTrigger asChild><Button className="w-fit hover:bg-transarent text-[#175CD3] bg-transparent justify-between">Move <ChevronDown className="h-4 w-4" /></Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuItem>Action 1</DropdownMenuItem><DropdownMenuItem>Action 2</DropdownMenuItem></DropdownMenuContent></DropdownMenu>) },
 ];
 
-const MobileCandidateCard = ({ candidate }) => {
+const MobileCandidateCard: React.FC<{ candidate: Candidate }> = ({ candidate }) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div className="border bg-gray-50 rounded-lg mb-3">
@@ -110,7 +110,7 @@ const MobileCandidateCard = ({ candidate }) => {
 
 // --- Main Page Component ---
 
-const CandidatesPage = ({ setPath }) => {
+const CandidatesPage: React.FC<{ setPath: (path: string) => void }> = ({ setPath }) => {
     const [data] = useState(candidatesData);
     const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel(), getPaginationRowModel: getPaginationRowModel() });
 
@@ -134,15 +134,15 @@ const CandidatesPage = ({ setPath }) => {
 
             {/* Summary Cards */}
             <div className="flex p-4 justify-between rounded-lg flex-col bg-white lg:flex-row gap-0 mb-8">
-                <SummaryCard title="Total Candidates" value="20" tSize={"44px"} />
+                <SummaryCard title="Total Candidates" value="20" tSize="44px" />
                 <div className="hidden lg:block">
-                    <SummaryCard title="Process" value="20" description="10" tSize={"28px"} />
+                    <SummaryCard title="Process" value="20" description="10" tSize="28px" />
                 </div><div className="block lg:hidden">
-                    <SummaryCard title="Process" value="20" description="10" tSize={"44px"} />
+                    <SummaryCard title="Process" value="20" description="10" tSize="44px" />
                 </div>
-                <SummaryCard title="Assessment Date" tSize={"18px"} value="11 Wed - 24 Sat, April" />
+                <SummaryCard title="Assessment Date" tSize="18px" value="11 Wed - 24 Sat, April" />
                 <SummaryCard title="Interview Type" value="Virtual" />
-                <SummaryCard title="Interview Date" tSize={"18px"} value="03 Wed - 06 Sat, 08 Mon - 11 Tue" />
+                <SummaryCard title="Interview Date" tSize="18px" value="03 Wed - 06 Sat, 08 Mon - 11 Tue" />
             </div>
 
             {/* Candidates Table/List */}
